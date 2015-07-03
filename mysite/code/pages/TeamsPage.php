@@ -8,10 +8,6 @@ class TeamsPage extends Page {
     private static $has_one = array(
     );
 
-    private static $has_many = array(
-        'Players' => 'Player'
-    );
-
     public function getCMSFields() {
         $fields = parent::getCMSFields();
 
@@ -21,7 +17,18 @@ class TeamsPage extends Page {
 class TeamsPage_Controller extends Page_Controller {
 
     public function getTeams() {
-        return Team::get()->Players();
+        $teams = Team::get();
+        $data = new ArrayList();
+        foreach ($teams as $team) {
+            $teamArray = array();
+            $teamArray['PlayerOne'] = $this->getPlayerNameById($team->PlayerOne);
+            $teamArray['PlayerTwo'] = $this->getPlayerNameById($team->PlayerTwo);
+            $data[] = $teamArray;
+        }
+    }
+
+    public function getPlayerNameById($id) {
+        return Player::get()->filter('ID', $id)->first()->Name;
     }
 
 }

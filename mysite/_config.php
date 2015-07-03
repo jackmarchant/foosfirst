@@ -10,3 +10,5 @@ i18n::set_locale('en_US');
 
 SiteTree::enable_nested_urls();
 Security::setDefaultAdmin('admin','password');
+
+ SS_Log::add_writer(new SS_LogFileWriter('../silverstripe-errors.log'), SS_Log::ERR);

@@ -7,6 +7,7 @@ class Player extends Member {
 
     private static $belongs_many_many = array(
         'Games' => 'Game',
+        'Teams' => 'Team',
     );
 
     public function getGamesPlayed() {

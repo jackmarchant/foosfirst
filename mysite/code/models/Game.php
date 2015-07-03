@@ -5,10 +5,6 @@ class Game extends DataObject {
     private static $db = array(
         'ScoreTeamOne' => 'Int',
         'ScoreTeamTwo' => 'Int',
-        'PlayerOneTeamOne' => 'Varchar',
-        'PlayerTwoTeamOne' => 'Varchar',
-        'PlayerOneTeamTwo' => 'Varchar',
-        'PlayerTwoTeamTwo' => 'Varchar',
     );
 
     private static $has_one = array(
@@ -21,6 +17,10 @@ class Game extends DataObject {
         'ScoreTeamTwo' => 'ScoreTeamTwo',
     );
 
+    private static $belongs_many_many = array(
+        'Teams' => 'Team',
+    );
+
     private static $many_many = array(
         'Players' => 'Player',
     );
@@ -28,24 +28,20 @@ class Game extends DataObject {
     public function getCMSFields() {
         $fields = parent::getCMSFields();
 
-        $players = Player::get();
-
-        //  team one
-        $fields->addFieldToTab('Root.Main', DropdownField::create('PlayerOneTeamOne', 'Player One (Team 1)', $players->map('ID', 'FirstName')));
-        $fields->addFieldToTab('Root.Main', DropdownField::create('PlayerTwoTeamOne', 'Player Two (Team 1)', $players->map('ID', 'FirstName')));
-
-        //  team two
-        $fields->addFieldToTab('Root.Main', DropdownField::create('PlayerOneTeamTwo', 'Player One (Team 2)', $players->map('ID', 'FirstName')));
-        $fields->addFieldToTab('Root.Main', DropdownField::create('PlayerTwoTeamTwo', 'Player One (Team 2)', $players->map('ID', 'FirstName')));
+        if ($this->ScoreTeamOne != 8 && $this->ScoreTeamTwo != 8) {
+            $fields->addFieldToTab('Root.Main',
+                LiteralField::create('Message', '<p class="message error">One team has to score 8 to win. Please check the scores for this game.</p>'),
+                'ScoreTeamOne'
+            );
+        }
 
         return $fields;
     }
 
     public function onBeforeWrite() {
         parent::onBeforeWrite();
-
-        if ($this->ScoreTeamOne == 8 || $this->ScoreTeamTwo) {
-            return false;
+        if ($this->ScoreTeamOne != 8 || $this->ScoreTeamTwo != 8) {
+            // stop this from happening
         }
 
     }

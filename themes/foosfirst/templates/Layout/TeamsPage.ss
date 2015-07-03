@@ -5,7 +5,8 @@
             <tbody>
                 <% loop Teams %>
                     <tr>
-                        $Me
+                        $PlayerOne
+                        $PlayerTwo
                     </tr>
                 <% end_loop %>
             </tbody>
