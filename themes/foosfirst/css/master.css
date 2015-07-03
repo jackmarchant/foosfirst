@@ -1,0 +1,11 @@
+.navbar-nav {
+  float: right; }
+
+.headers div {
+  display: inline-block; }
+
+.player {
+  width: 100%; }
+
+.table {
+  border: 1px solid #ddd; }

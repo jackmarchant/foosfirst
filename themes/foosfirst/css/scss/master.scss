@@ -1,0 +1,30 @@
+//scss
+@import 'vars_mixins';
+
+.navbar-nav {
+    float:right;
+}
+
+.headers {
+    div {display: inline-block;}
+}
+
+.player {
+    width:100%;
+}
+
+.table {
+    border: 1px solid #ddd;
+}
+
+@media screen and (max-width:$breakpoint-desktop) {
+
+}
+
+@media screen and (max-width:$breakpoint-tablet) {
+
+}
+
+@media screen and (max-width:$breakpoint-mobile) {
+
+}
