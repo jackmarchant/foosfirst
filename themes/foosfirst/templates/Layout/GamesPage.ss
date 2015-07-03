@@ -19,5 +19,8 @@
                 <% end_loop %>
             </tbody>
         </table>
+
+        <a href="{$BaseHref}{$URLSegment}/addgame" class="btn btn-success">Add new Game</a>
+
     </div>
 </div>

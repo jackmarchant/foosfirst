@@ -17,7 +17,9 @@ class GamesPage extends Page {
 class GamesPage_Controller extends Page_Controller {
 
     private static $allowed_actions = array(
-        'view'
+        'view',
+        'addgame',
+        'doAddGame',
     );
 
     public function getGames() {
@@ -35,6 +37,48 @@ class GamesPage_Controller extends Page_Controller {
             'LeaderboardLink' => $link,
         ));
         return $data->renderWith(array('Game', 'Page'));
+    }
+
+    public function addgame(SS_HTTPRequest $request) {
+         $data = new ArrayData(array(
+            'Form' => $this->newGameForm(),
+            'ParentLink' => $this->Link(),
+        ));
+        return $data->renderWith(array('NewGame', 'Page'));
+    }
+
+    public function newGameForm() {
+
+        $fields = new FieldList(
+            NumericField::create('ScoreTeamOne', 'Score Team One'),
+            NumericField::create('ScoreTeamTwo', 'Score Team Two')
+        );
+
+        $actions = new FieldList(
+            FormAction::create("doAddGame")->setTitle("Add Game")
+        );
+
+        $required = new RequiredFields('ScoreTeamOne', 'ScoreTeamTwo');
+
+        $form = Form::create($this, 'doAddGame', $fields, $actions, $required);
+
+        $form->setTemplate('form/NewGameForm');
+
+        return $form;
+    }
+
+    public function doAddGame($data, Form $form) {
+
+        $game = Game::create();
+
+        $game->ScoreTeamOne = $data['ScoreTeamOne'];
+        $game->ScoreTeamTwo = $data['ScoreTeamTwo'];
+
+        $game->write();
+
+        $this->Form = null;
+
+        return $this->redirectBack();
     }
 
 }
