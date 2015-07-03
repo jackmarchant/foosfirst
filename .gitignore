@@ -1,0 +1,16 @@
+assets/*
+_ss_environment.php
+tools/phing-metadata
+silverstripe-cache
+.buildpath
+.project
+.settings
+.idea
+.DS_Store
+vendor/
+index.php
+framework/
+cms/
+.editorconfig
+.htaccess
+web.config
