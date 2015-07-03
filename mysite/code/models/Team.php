@@ -11,8 +11,11 @@ class Team extends DataObject {
         'getTeamNames' => 'Players',
     );
 
-    private static $many_many = array(
+    private static $belongs_many_many = array(
         'Games' => 'Game',
+    );
+
+    private static $many_many = array(
         'Players' => 'Player',
     );
 
@@ -31,6 +34,10 @@ class Team extends DataObject {
         $player_one = Player::get()->filter('ID', $this->PlayerOne)->first();
         $player_two = Player::get()->filter('ID', $this->PlayerTwo)->first();
         return $player_one->FirstName . ' & ' . $player_two->FirstName;
+    }
+
+    public function getGamesWon() {
+        return $this->Games()->count();
     }
 
 }

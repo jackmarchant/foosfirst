@@ -2,11 +2,15 @@
     <h1>$Title</h1>
     <div class="container-main">
         <table class="table table-striped table-border table-hover">
+            <th>Player 1</th>
+            <th>Player 2</th>
+            <th>Games Played</th>
             <tbody>
                 <% loop Teams %>
                     <tr>
-                        $PlayerOne
-                        $PlayerTwo
+                        <td>$PlayerOne</td>
+                        <td>$PlayerTwo</td>
+                        <td>$GamesWon</td>
                     </tr>
                 <% end_loop %>
             </tbody>

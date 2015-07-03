@@ -6,12 +6,11 @@ class Player extends Member {
     );
 
     private static $belongs_many_many = array(
-        'Games' => 'Game',
         'Teams' => 'Team',
     );
 
     public function getGamesPlayed() {
-        return $this->Games()->count();
+        return $this->Teams()->count();
     }
 
     public function PlayerLink() {

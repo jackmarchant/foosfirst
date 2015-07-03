@@ -76,8 +76,6 @@ class GamesPage_Controller extends Page_Controller {
 
         $game->write();
 
-        $this->Form = null;
-
         return $this->redirectBack();
     }
 

@@ -5,6 +5,7 @@ class Game extends DataObject {
     private static $db = array(
         'ScoreTeamOne' => 'Int',
         'ScoreTeamTwo' => 'Int',
+        'Winner' => 'Varchar',
     );
 
     private static $has_one = array(
@@ -17,12 +18,8 @@ class Game extends DataObject {
         'ScoreTeamTwo' => 'ScoreTeamTwo',
     );
 
-    private static $belongs_many_many = array(
-        'Teams' => 'Team',
-    );
-
     private static $many_many = array(
-        'Players' => 'Player',
+        'Teams' => 'Team',
     );
 
     public function getCMSFields() {
@@ -44,6 +41,8 @@ class Game extends DataObject {
             // stop this from happening
         }
 
+        $winner = ($this->ScoreTeamOne > $this->ScoreTeamTwo) ? 'Team One' : 'Team Two';
+        $this->Winner = $winner;
     }
 
     public function getWinner() {
