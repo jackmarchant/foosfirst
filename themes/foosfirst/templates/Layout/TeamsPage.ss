@@ -10,7 +10,7 @@
                     <tr>
                         <td>$PlayerOne</td>
                         <td>$PlayerTwo</td>
-                        <td>$GamesWon</td>
+                        <td>$GamesPlayed</td>
                     </tr>
                 <% end_loop %>
             </tbody>

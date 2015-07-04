@@ -19,6 +19,10 @@ class Team extends DataObject {
         'Players' => 'Player',
     );
 
+    public function getTitle() {
+        return $this->getTeamNames();
+    }
+
     public function getCMSFields() {
         $fields = parent::getCMSFields();
 
@@ -36,7 +40,7 @@ class Team extends DataObject {
         return $player_one->FirstName . ' & ' . $player_two->FirstName;
     }
 
-    public function getGamesWon() {
+    public function getGamesPlayed() {
         return $this->Games()->count();
     }
 

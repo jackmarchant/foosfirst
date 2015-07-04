@@ -2,18 +2,19 @@
     <h1>$Title</h1>
     <div class="container-main">
         <table class="table table-striped table-border table-hover">
-            <th>Name</th>
+            <th>Team</th>
             <th>Games Played</th>
-            <th>View Player</th>
             <tbody>
-                <% loop Players %>
+                <% loop Teams %>
                     <tr>
-                        <td>$Name</td>
+                        <td>$Names</td>
                         <td>$GamesPlayed</td>
-                        <td><a class="btn btn-primary" href="{$Top.LeaderboardLink}{$PlayerLink}">View</a></td>
                     </tr>
                 <% end_loop %>
             </tbody>
         </table>
+    </div>
+    <div class="container paddingtop">
+        <a class="btn btn-warning" href="$ParentLink">See all Games</a>
     </div>
 </div>

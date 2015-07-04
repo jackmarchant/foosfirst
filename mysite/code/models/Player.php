@@ -10,7 +10,14 @@ class Player extends Member {
     );
 
     public function getGamesPlayed() {
-        return $this->Teams()->count();
+        $teams = Team::get();
+        $count = 0;
+        foreach ($teams as $team) {
+            if ($team->PlayerOne == $this->ID || $team->PlayerTwo == $this->ID) {
+                $count++;
+            }
+        }
+        return $count;
     }
 
     public function PlayerLink() {

@@ -53,4 +53,8 @@ class Game extends DataObject {
         return 'view/' . $this->ID;
     }
 
+    public function getTeams() {
+        return $this->Teams();
+    }
+
 }

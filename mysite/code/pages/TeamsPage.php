@@ -23,7 +23,7 @@ class TeamsPage_Controller extends Page_Controller {
             $teamArray = array();
             $teamArray['PlayerOne'] = $this->getPlayerNameById($team->PlayerOne);
             $teamArray['PlayerTwo'] = $this->getPlayerNameById($team->PlayerTwo);
-            $teamArray['GamesWon'] = $team->getGamesWon();
+            $teamArray['GamesPlayed'] = $team->getGamesPlayed();
             $data[] = $teamArray;
         }
         return $data;

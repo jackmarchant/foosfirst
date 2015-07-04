@@ -30,11 +30,18 @@ class GamesPage_Controller extends Page_Controller {
         $params = $request->params();
         $game_id = $params['ID'];
         $game = Game::get()->filter('ID', $game_id)->first();
-        $players = $game->Players();
-        $link = PlayersPage::get()->first()->Link();
+        $teams = $game->Teams();
+        $allTeams = array();
+        foreach ($teams as $team) {
+            $player_one = Player::get()->filter('ID', $team->PlayerOne)->first();
+            $player_two = Player::get()->filter('ID', $team->PlayerTwo)->first();
+            $allTeams['Names'] = $player_one->Name . ' & ' . $player_two->Name;
+            $allTeams['GamesPlayed'] = $team->getGamesPlayed();
+        }
+        $link = $this->Link();
         $data = new ArrayData(array(
-            'Players' => $players,
-            'LeaderboardLink' => $link,
+            'Teams' => $allTeams,
+            'ParentLink' => $link,
         ));
         return $data->renderWith(array('Game', 'Page'));
     }
@@ -76,7 +83,9 @@ class GamesPage_Controller extends Page_Controller {
 
         $game->write();
 
-        return $this->redirectBack();
+        $redirectLink = $this->Link();
+
+        return $this->redirect($redirectLink);
     }
 
 }

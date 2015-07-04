@@ -16,4 +16,7 @@
             </tbody>
         </table>
     </div>
+    <div class="container">
+        <a href="{$BaseHref}{$URLSegment}/addplayer" class="btn btn-success">Add new Player</a>
+    </div>
 </div>

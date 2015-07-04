@@ -17,7 +17,9 @@ class PlayersPage extends Page {
 class PlayersPage_Controller extends Page_Controller {
 
     private static $allowed_actions = array(
-        'view'
+        'view',
+        'addplayer',
+        'doAddplayer',
     );
 
     public function init() {
@@ -38,6 +40,48 @@ class PlayersPage_Controller extends Page_Controller {
             'ParentLink' => $link,
         ));
         return $data->renderWith(array('Player', 'Page'));
+    }
+
+    public function addplayer(SS_HTTPRequest $request) {
+         $data = new ArrayData(array(
+            'Form' => $this->newplayerForm(),
+            'ParentLink' => $this->Link(),
+        ));
+        return $data->renderWith(array('Newplayer', 'Page'));
+    }
+
+    public function newPlayerForm() {
+
+        $fields = new FieldList(
+            TextField::create('FirstName', 'First Name'),
+            TextField::create('Surname', 'Surname')
+        );
+
+        $actions = new FieldList(
+            FormAction::create("doAddplayer")->setTitle("Add player")
+        );
+
+        $required = new RequiredFields('FirstName', 'Surname');
+
+        $form = Form::create($this, 'doAddPlayer', $fields, $actions, $required);
+
+        $form->setTemplate('form/NewPlayerForm');
+
+        return $form;
+    }
+
+    public function doAddPlayer($data, Form $form) {
+
+        $player = Player::create();
+
+        $player->FirstName = $data['FirstName'];
+        $player->Surname = $data['Surname'];
+
+        $player->write();
+
+        $redirectLink = $this->Link();
+
+        return $this->redirect($redirectLink);
     }
 
 }
