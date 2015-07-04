@@ -25,7 +25,7 @@ class GamesPage_Controller extends Page_Controller {
     );
 
     public function getGames() {
-        return Game::get();
+        return Game::get()->sort('Created DESC');
     }
 
     public function view(SS_HTTPRequest $request) {
