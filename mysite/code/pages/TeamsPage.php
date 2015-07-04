@@ -16,6 +16,11 @@ class TeamsPage extends Page {
 }
 class TeamsPage_Controller extends Page_Controller {
 
+    private static $allowed_actions = array(
+        'addteam',
+        'doAddTeam',
+    );
+
     public function getTeams() {
         $teams = Team::get();
         $data = new ArrayList();
@@ -31,6 +36,53 @@ class TeamsPage_Controller extends Page_Controller {
 
     public function getPlayerNameById($id) {
         return Player::get()->filter('ID', $id)->first()->Name;
+    }
+
+    public function addteam(SS_HTTPRequest $request) {
+         $data = new ArrayData(array(
+            'Form' => $this->newTeamForm(),
+            'ParentLink' => $this->Link(),
+        ));
+        return $data->renderWith(array('NewTeam', 'Page'));
+    }
+
+    public function newTeamForm() {
+
+        $players = Player::get();
+        $playerOne = DropdownField::create('PlayerOne', 'Player One', $players->map('ID', 'FirstName'));
+        $playerTwo = DropdownField::create('PlayerTwo', 'Player Two', $players->map('ID', 'FirstName'));
+
+
+        $fields = new FieldList(
+            $playerOne,
+            $playerTwo
+        );
+
+        $actions = new FieldList(
+            FormAction::create("doAddTeam")->setTitle("Add Team")
+        );
+
+        $required = new RequiredFields('PlayerOne', 'PlayerTwo');
+
+        $form = Form::create($this, 'doAddTeam', $fields, $actions, $required);
+
+        $form->setTemplate('form/NewTeamForm');
+
+        return $form;
+    }
+
+    public function doAddTeam($data, Form $form) {
+
+        $team = Team::create();
+
+        $team->PlayerOne = $data['PlayerOne'];
+        $team->PlayerTwo = $data['PlayerTwo'];
+
+        $team->write();
+
+        $redirectLink = $this->Link();
+
+        return $this->redirect($redirectLink);
     }
 
 }
