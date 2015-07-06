@@ -58,6 +58,7 @@ class GamesPage_Controller extends Page_Controller {
             $data = new ArrayData(array(
                 'Content' => 'There are no teams assigned to this game.',
                 'AddNewTeam' => '<a href="' . $link . 'assignteams/'. $game_id .'" class="btn btn-success">Assign a Team to this game</a>',
+                'ParentLink' => $this->Link(),
             ));
             Session::set('GameID', $game_id);
         }

@@ -67,6 +67,7 @@ class PlayersPage_Controller extends Page_Controller {
 
         $form->setTemplate('forms/NewPlayerForm');
 
+
         return $form;
     }
 
@@ -76,16 +77,28 @@ class PlayersPage_Controller extends Page_Controller {
 
     public function doAddPlayer($data, Form $form) {
 
-        $player = Player::create();
+        $player_exists = (Player::get()->filter(array('FirstName' => $data['FirstName'],'Surname' => $data['Surname']))->count() > 0) ? true : false;
+        if ($player_exists) {
 
-        $player->FirstName = $data['FirstName'];
-        $player->Surname = $data['Surname'];
+            // todo
+            // add error message because player already exists
 
-        $player->write();
+            return $this->redirectBack();
 
-        $redirectLink = $this->Link() . '?success=1';
+        } else {
 
-        return $this->redirect($redirectLink);
+            $player = Player::create();
+
+            $player->FirstName = $data['FirstName'];
+            $player->Surname = $data['Surname'];
+
+            $player->write();
+
+            $redirectLink = $this->Link() . '?success=1';
+
+            return $this->redirect($redirectLink);
+
+        }
     }
 
 }

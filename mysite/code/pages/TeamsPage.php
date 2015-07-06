@@ -34,7 +34,6 @@ class TeamsPage_Controller extends Page_Controller {
         return $data;
     }
 
-
     public function getPlayerNameById($id) {
         return Player::get()->filter('ID', $id)->first()->Name;
     }
@@ -47,6 +46,9 @@ class TeamsPage_Controller extends Page_Controller {
         return $data->renderWith(array('NewTeam', 'Page'));
     }
 
+
+    // check success getvar appended to url
+    // return boolean
     public function success() {
         return ($this->getRequest()->getVar('success')) ? true : false;
     }
@@ -78,23 +80,45 @@ class TeamsPage_Controller extends Page_Controller {
 
     public function doAddTeam($data, Form $form) {
 
-        // @todo: check current teams for existing player combination
-        // return false
-        // $currentTeams = Team::get();
+        // check if the player combination for a new team already exists
+        $teamExists = $this->teamExists($data['PlayerOne'], $data['PlayerTwo']);
+        if (!$teamExists) {
+            // check other combination
+            $teamExists = $this->teamExists($data['PlayerTwo'], $data['PlayerOne']);
+        }
+
+        if ($teamExists) {
+            // team already exists
+            return $this->redirectBack();
+
+        } else {
+            // check again - opposite order
+
+            // create the new team with player ID's
+            $team = Team::create();
+
+            $team->PlayerOne = $data['PlayerOne'];
+            $team->PlayerTwo = $data['PlayerTwo'];
+
+            $team->write();
+
+            $redirectLink = $this->Link() . '?success=1';
+
+            return $this->redirect($redirectLink);
+
+        }
 
 
-        // create the new team with player ID's
-        $team = Team::create();
+    }
 
-        $team->PlayerOne = $data['PlayerOne'];
-        $team->PlayerTwo = $data['PlayerTwo'];
-
-        $team->write();
-
-        $redirectLink = $this->Link() . '?success=1';
-
-        return $this->redirect($redirectLink);
-
+    /*
+     *  Check if a team combination exists
+     *  return boolean
+     *  @param $playerOne (tinyint - ID)
+     *  @param $playerTwo (tinyint -ID)
+     */
+    public function teamExists($playerOne, $playerTwo) {
+        return (Team::get()->filter(array('PlayerOne'=>$playerOne, 'PlayerTwo'=>$playerTwo))->count() > 0) ? true : false;
     }
 
 }
