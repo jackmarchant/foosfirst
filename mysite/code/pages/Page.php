@@ -30,6 +30,7 @@ class Page_Controller extends ContentController {
 		Requirements::javascript($themeDir . '/bower_components/jquery/dist/jquery.min.js');
 		Requirements::javascript($themeDir . '/bower_components/bootstrap/dist/js/bootstrap.min.js');
 		Requirements::javascript($themeDir . '/bower_components/angular/angular.min.js');
+		Requirements::javascript($themeDir . '/javascript/functions.js');
 	}
 
 

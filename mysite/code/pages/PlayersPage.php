@@ -70,6 +70,10 @@ class PlayersPage_Controller extends Page_Controller {
         return $form;
     }
 
+    public function success() {
+        return ($this->getRequest()->getVar('success')) ? true : false;
+    }
+
     public function doAddPlayer($data, Form $form) {
 
         $player = Player::create();
@@ -79,7 +83,7 @@ class PlayersPage_Controller extends Page_Controller {
 
         $player->write();
 
-        $redirectLink = $this->Link();
+        $redirectLink = $this->Link() . '?success=1';
 
         return $this->redirect($redirectLink);
     }

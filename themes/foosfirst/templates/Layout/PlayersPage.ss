@@ -1,6 +1,9 @@
 <div class="container-main" ng-controller="{$URLSegment}">
     <h1>$Title</h1>
     <div class="container-main">
+        <% if Success %>
+            <p class="message good">Great! You've created a new player.</p>
+        <% end_if %>
         <table class="table table-striped table-border table-hover">
             <th>Name</th>
             <th>Games Played</th>

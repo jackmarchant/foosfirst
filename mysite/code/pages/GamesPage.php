@@ -101,9 +101,13 @@ class GamesPage_Controller extends Page_Controller {
 
         $game->write();
 
-        $redirectLink = $this->Link();
+        $redirectLink = $this->Link() . '?success=1';
 
         return $this->redirect($redirectLink);
+    }
+
+    public function success() {
+        return ($this->getRequest()->getVar('success')) ? true : false;
     }
 
     public function assignteams(SS_HTTPRequest $request) {
@@ -160,7 +164,7 @@ class GamesPage_Controller extends Page_Controller {
             $game->Teams->add($data['TeamTwo']);
         }
 
-        $redirectLink = $this->Link();
+        $redirectLink = $this->Link() . '?success=1';
 
         return $this->redirect($redirectLink);
     }

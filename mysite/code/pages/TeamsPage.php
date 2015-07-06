@@ -34,16 +34,21 @@ class TeamsPage_Controller extends Page_Controller {
         return $data;
     }
 
+
     public function getPlayerNameById($id) {
         return Player::get()->filter('ID', $id)->first()->Name;
     }
 
     public function addteam(SS_HTTPRequest $request) {
-         $data = new ArrayData(array(
+        $data = new ArrayData(array(
             'Form' => $this->newTeamForm(),
             'ParentLink' => $this->Link(),
         ));
         return $data->renderWith(array('NewTeam', 'Page'));
+    }
+
+    public function success() {
+        return ($this->getRequest()->getVar('success')) ? true : false;
     }
 
     public function newTeamForm() {
@@ -73,6 +78,12 @@ class TeamsPage_Controller extends Page_Controller {
 
     public function doAddTeam($data, Form $form) {
 
+        // @todo: check current teams for existing player combination
+        // return false
+        // $currentTeams = Team::get();
+
+
+        // create the new team with player ID's
         $team = Team::create();
 
         $team->PlayerOne = $data['PlayerOne'];
@@ -80,9 +91,10 @@ class TeamsPage_Controller extends Page_Controller {
 
         $team->write();
 
-        $redirectLink = $this->Link();
+        $redirectLink = $this->Link() . '?success=1';
 
         return $this->redirect($redirectLink);
+
     }
 
 }

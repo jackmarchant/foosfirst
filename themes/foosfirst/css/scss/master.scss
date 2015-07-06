@@ -68,6 +68,17 @@ input[type="submit"] {
     @include border-radius(4px);
 }
 
+.message {
+    @include border-radius(4px);
+    background:#eee;
+    color:#555;
+    border:1px solid #999;
+    padding:1em 1.5em;
+    &.good {
+        background:lighten($green, 40);
+    }
+}
+
 @media screen and (max-width:$breakpoint-desktop) {
 
 }
