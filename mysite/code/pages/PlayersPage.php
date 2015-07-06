@@ -65,7 +65,7 @@ class PlayersPage_Controller extends Page_Controller {
 
         $form = Form::create($this, 'doAddPlayer', $fields, $actions, $required);
 
-        $form->setTemplate('form/NewPlayerForm');
+        $form->setTemplate('forms/NewPlayerForm');
 
         return $form;
     }

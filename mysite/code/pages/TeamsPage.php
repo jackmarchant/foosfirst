@@ -66,7 +66,7 @@ class TeamsPage_Controller extends Page_Controller {
 
         $form = Form::create($this, 'doAddTeam', $fields, $actions, $required);
 
-        $form->setTemplate('form/NewTeamForm');
+        $form->setTemplate('forms/NewTeamForm');
 
         return $form;
     }

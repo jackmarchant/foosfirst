@@ -87,7 +87,7 @@ class GamesPage_Controller extends Page_Controller {
 
         $form = Form::create($this, 'doAddGame', $fields, $actions, $required);
 
-        $form->setTemplate('form/NewGameForm');
+        $form->setTemplate('forms/NewGameForm');
 
         return $form;
     }
@@ -143,7 +143,7 @@ class GamesPage_Controller extends Page_Controller {
 
         $form = Form::create($this, 'doAssignTeams', $fields, $actions, $required);
 
-        $form->setTemplate('form/AssignTeamsForm');
+        $form->setTemplate('forms/AssignTeamsForm');
 
         return $form;
     }

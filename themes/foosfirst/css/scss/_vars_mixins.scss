@@ -1,3 +1,12 @@
 $breakpoint-desktop: 992px;
 $breakpoint-tablet: 768px;
 $breakpoint-mobile:480px;
+
+$green: #5cb85c;
+
+@mixin border-radius($radius) {
+    -webkit-border-radius:$radius;
+    -ms-border-radius:$radius;
+    -moz-border-radius:$radius;
+    border-radius:$radius;
+}
